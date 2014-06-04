@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Click Example</title>
+		
+		<script type="text/javascript" 
+				src="rivets.js"></script>
+		
+	</head>
+	<body>
+		<h1>Click Example</h1>
+		
+		<div id="foo">
+			<button rv-on-click="modifiers.onClick" rv-text="data.buttonText"></button>
+			<p>You've clicked the button { data.clickCount } times.</p>
+		</div>
+		
+		<script type="text/javascript">
+			
+			var data = {
+					buttonText: 'click here',
+					clickCount: 0
+				},
+				
+				modifiers = {
+					onClick: function(e, model) {
+						
+						console.log(this, '\n', model);
+						
+						model.data.clickCount++;
+					}
+				};
+			
+			rivets.bind(document.querySelector('#foo'), {
+				data: data,
+				modifiers: modifiers
+			});
+		</script>
+	</body>
+</html>

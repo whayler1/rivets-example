@@ -1,0 +1,15 @@
+ul {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+li {
+	display: inline-block;
+	padding: 0 20px;
+	border-left: 1px dotted grey;
+}
+
+li:first-child {
+	padding-left: 0;
+	border-left: none;
+}
