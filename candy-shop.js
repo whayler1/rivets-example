@@ -104,7 +104,25 @@ var data = {
 rivets.formatters.price = function(val) {
 	
 	var spl = String(val).split('.'),
-		pow;
+		dollarsArray = spl[0].split(''),
+		lastDollar = dollarsArray.length - 1,
+		pow,
+		i;
+	
+	if(dollarsArray.length > 3) {
+		
+		dollarsArray.reverse();
+		
+		for(i = lastDollar; i > -1; i--) {
+			
+			if(i % 3 === 0 && i !== 0) {
+				
+				dollarsArray.splice(i, 0, ',');
+			}
+		}
+		
+		spl[0] = dollarsArray.reverse().join('');
+	}
 	
 	if(spl.length > 1) {
 		
