@@ -191,11 +191,13 @@ In the above code you'll see we accept a numeric value. Do some logic to format 
 
 _The topics of how best to format a price, and the most efficient way to do so are certainly open for debate. The above code is is no way supposed to be a best-practices example of how to do so. It's just there to suit the purpose of explaining formatters within this tutorial._
 
-Now let's apply the price formatter to our price binder. This is done in similar syntax to a Unix pipeline. If you've eveer used a pip in the Mac command line, you already know how to use a formatter. Update your price html to read as follows.
+Now let's apply the price formatter to our price binder. This is done in similar syntax to a Unix pipeline. If you've ever used a pipe in the Mac command line, you already know how to use a formatter. Update your price html to read as follows.
 
 ```html
           <var rv-text="product.price | price"></var>
 ```
+
+In the above code we're taking the value of `product.price` and sending it as an argument to the `price` formatter, then displaying the return value.
 
 Refresh your browser. You should see the html string we return in our price formatter. You'll also notice that there's a small problem. The html is being printed out as plain text instead of being escaped as html.
 
