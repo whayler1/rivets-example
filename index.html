@@ -14,7 +14,6 @@
           <h3 rv-text="product.title"></h3>
           <var rv-html="product.price | price"></var>
           <button type="button" rv-on-click="controller.onAtbClick">Add to bag</button>
-        </li>
       </ul>
       <hr>
       <h3>Shopping Bag</h3>
@@ -25,7 +24,6 @@
           <button type="button" rv-on-click="controller.removeItem">-</button>
           <span> Quantity { product.quantity } </span>
           <button type="button" rv-on-click="controller.addItem">+</button>
-        </li>
       </ul>
       <hr>
       <div rv-show="data.bag | length">
