@@ -126,7 +126,6 @@ rivets.formatters.price = function(val) {
 	
 	if(spl.length > 1) {
 		
-		//spl[1] = Math.round(spl[1] / Math.pow(10, spl[1].length - 2) );
 		spl[1] = spl[1].substr(0, 2);
 	}else {
 		
