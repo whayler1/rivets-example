@@ -142,7 +142,7 @@ After adding the above code to "index.html", refresh your browser. You'll see th
 
 ### Formatters
 
-[Formatters](https://github.com/mikeric/rivets/wiki/Example-formatters) are essentially functions, which accept arguments and return a value. Something any developer is well familiar with. In this case we'll be accepting a number and returning a formatted html string. Let's write an formatter called price. You can place this in your js anywhere before your `rivets.bind()` function.
+[Formatters](https://github.com/mikeric/rivets/wiki/Example-formatters) are essentially functions, which accept arguments and returns a value. Something any developer is well familiar with. In this case we'll be accepting a number and returning a formatted html string. Let's write a formatter called price. You can place this in your js anywhere before your `rivets.bind()` function.
 
 ```js
 rivets.formatters.price = function(val) {
@@ -185,7 +185,7 @@ rivets.formatters.price = function(val) {
 };
 ```
 
-In the above code you'll see we accept a numeric value. Do some logic to format the price into a readble USD denomination, and return a string with some html markup.
+In the above code you'll see we accept a numeric value. Do some logic to format the price into a readable USD denomination, and return a string with some html markup.
 
 #### _Disclaimer!_
 
@@ -203,7 +203,7 @@ Refresh your browser. You should see the html string we return in our price form
 
 > <abbr title="USD">$</abbr>0.50
 
-We need to switch to the `rv-html` binder to display our markup properly. This is similar to the difference between [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node.textContent) and [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element.innerHTML) methods in javascript.
+We need to switch to the `rv-html` binder to display our markup properly. This is similar to the difference between [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node.textContent) and [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element.innerHTML) properties in javascript.
 
 ```html
           <var rv-html="product.price | price"></var>
