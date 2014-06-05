@@ -10,7 +10,7 @@ The most basic thing you could do in rivets is use it's handlebars-like syntax t
 
 #### html
 
-Make a new html file and write the below markup in it.
+Make a new html file and write the below markup in it. Title this file "index.html".
 
 ```html
 <!DOCTYPE html>
@@ -67,3 +67,23 @@ rivets.bind(document.querySelector('#candy-shop'), {
   data: data
 });
 ```
+
+To start all we'll do is create a data object with a key/value pair for out title. Then we use the `rivets.bind()` method to associate our data with a dom element. The first argument tells rivets where in the dom to bind to, in this case the element with id "candy-shop". Then we pass in an object. This is the object we'll have access to when templating content inside the bound element. We'll add our data object to it so we can reference it within the #candy-shop div.
+
+### One Way Binding
+
+Now open index.html in your browser. You should see your h1 populated with the "Welcome to the Candy Shop" string.
+
+Now open the console in your browsers developer tools. Type `data.title = 'I have achieved one way binding'`. Notice as soon as you hit enter the contents of the h1 changes to the value of `data.title`. This is one way binding. Any changes to your data object will immediately update the DOM.
+
+### Binders
+
+Rivets comes with an assortment of built in [binders](https://github.com/mikeric/rivets/wiki/Core-Binders). These are html attributes you can add to DOM elements to associate data with them in different ways. In rivets all binders begin with an `rv-` prefix, not at all different then the [html5 "data-" prefix](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_data_attributes) we know and love.
+
+One of the simplest binders is `rv-text`. It does essentially the same thing as the handlebars-like templating we just did. Update the h1 tag in your html file to use the rv-text binder.
+
+```html
+      <h1 rv-text="data.title"></h1>
+```
+
+Refresh your browser and see everything is the same as before.
