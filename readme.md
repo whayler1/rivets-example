@@ -87,3 +87,7 @@ One of the simplest binders is `rv-text`. It does essentially the same thing as 
 ```
 
 Refresh your browser and see everything is the same as before.
+
+#### Looping Through an Array with Binders
+
+A common task in templating is generating markup from an array. Rivets uses the `rv-each-*` [binder](https://github.com/mikeric/rivets/wiki/Core-Binders#each-item) for this. This employs an interesting trick where the variable you define in the glob `rv-each-variable` becomes your reference to that object (in the case the object being an array). This is analagouse to [for...in](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in) loop logic. Where `for variable in object` is analagous to `rv-each-variable="object"`.
