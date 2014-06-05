@@ -91,3 +91,33 @@ Refresh your browser and see everything is the same as before.
 #### Looping Through an Array with Binders
 
 A common task in templating is generating markup from an array. Rivets uses the `rv-each-*` [binder](https://github.com/mikeric/rivets/wiki/Core-Binders#each-item) for this. This employs an interesting trick where the variable you define in the glob `rv-each-variable` becomes your reference to that object (in the case the object being an array). This is analagous to [for...in](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in) loop logic. Where `for variable in object` is analagous to `rv-each-variable="object"`.
+
+Let's define the array of products for our candy shop. We'll add this to the data object in "candy-shop.js". We're going to use all the items named in the 50 cent song ["Candy Shop"](http://rapgenius.com/50-cent-candy-shop-lyrics).
+
+```js
+var data = {
+    title: 'Welcome to the Candy Shop',
+    
+    products: [
+      {
+        title: 'lollipop',
+        price: 0.5
+      },
+      {
+        title: 'teakettle',
+        price: 14.95
+      },
+      {
+        title: 'magic stick',
+        price: 89.12546
+      },
+      {
+        title: 'low rider',
+        price: 22450
+      },
+      {
+        title: 'champagne',
+        price: 45
+      }
+    ]};
+```
