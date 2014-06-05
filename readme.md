@@ -201,7 +201,7 @@ In the above code we're taking the value of `product.price` and sending it as an
 
 Refresh your browser. You should see the html string we return in our price formatter. You'll also notice that there's a small problem. The html is being printed out as plain text instead of being escaped as html.
 
-> <abbr title="USD">$</abbr>0.50
+> \<abbr title="USD">$\</abbr>0.50
 
 We need to switch to the `rv-html` binder to display our markup properly. This is similar to the difference between [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node.textContent) and [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element.innerHTML) properties in javascript.
 
