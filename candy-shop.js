@@ -127,6 +127,11 @@ rivets.formatters.price = function(val) {
   if(spl.length > 1) {
     
     spl[1] = spl[1].substr(0, 2);
+    
+    if(spl[1].length < 2) {
+      
+      spl[1] += '0';
+    }
   }else {
     
     spl[1] = '00';
