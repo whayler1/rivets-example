@@ -5,3 +5,23 @@ A buddy recently turned me on to [rivets js](http://www.rivetsjs.com/). Besides 
 ### Hello Rivets
 
 The most basic thing you could do in rivets is use it's handlebars-like syntax to populate parts of the dom with data. This is called &ldquo;text content interpolation&rdquo;, but for our purposes it basically means defining where you want data to appear in the DOM by wrapping it in curly brackets: `{ somedata }`.
+
+Make a new html file and write the below markup in it.
+
+```html
+<!DOCTYPE html>
+<html>
+  <title>Candy Shop</title>
+    
+  <link rel="stylesheet" href="candy-shop.css">
+  <script type="text/javascript" 
+      src="http://cdn.rawgit.com/mikeric/rivets/master/dist/rivets.min.js"></script>
+  <body>
+    <div id="candy-shop">
+      <h1 rv-text="data.title"></h1>
+    </div>
+    
+    <script type="text/javascript" src="candy-shop.js"></script>
+  </body>
+</html>
+```
