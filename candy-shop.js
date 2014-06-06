@@ -53,7 +53,6 @@ var data = {
       
       bag.push(product);
       bag[bag.length - 1].quantity = 1;
-      //console.log(product, bag);
       updatePrice(model.data);
     },
     
