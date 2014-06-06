@@ -320,7 +320,7 @@ We create another `rv-each-*` binder that loops through the `data.bag` array and
 
 Refresh your browser and click some of the "Add to bag" buttons. You'll see the shopping bag populate with the items. If you click a products "Add to bag" button multiple times you will see the quantity on that item iterate up in the shopping bag. Click the plus and minus buttons on items in the shopping bag and you'll see the quantity go up and down.
 
-When you're done, refresh the page again. Notice in the starting state it just says "Shopping Bag" with nothing under it. Let's use binders and formatters to add a message that says "You have no items in your bag" when the shopping bag is empty. We're going to create a formatter that returns the length of an array, then we're going send that value to the the `rv-hide` binder. Since in javascript 0 is "falsey" and all positive numbers are "truthy" the element will be hidden whenever the length of `data.bag` is greater then 0.
+When you're done, refresh the page again. Notice in the starting state it just says "Shopping Bag" with nothing under it. Let's use binders and formatters to add a message that says "You have no items in your bag" when the shopping bag is empty. We're going to create a formatter that returns the length of an array, then we're going send that value to the the `rv-hide` [binder](https://github.com/mikeric/rivets/wiki/Core-Binders#showhide). Since in javascript 0 is "falsey" and all positive numbers are "truthy" the element will be hidden whenever the length of `data.bag` is greater then 0.
 
 Add this formatter to your js anywhere before `rivets.bind()`.
 
