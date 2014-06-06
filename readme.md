@@ -345,3 +345,132 @@ Refresh your browser and you'll see the empty bag message under the "Shopping Ba
 
 #### Cost Calculator
 
+Now that we have our product and shopping bag displays fully functional we can create a cost calculator so the user can price their purchase out.
+
+Start by updating the data object to include keys for our calculator data.
+
+```js
+var data = {
+    ...
+    
+    subtotal: 0,
+    
+    tax: 0,
+    
+    total: 0
+  },
+  ...
+```
+
+In our html we'll write out a display for the price.
+
+```html
+  ...
+    <div id="candy-shop">
+      ...
+      <hr>
+      <div rv-show="data.bag | length">
+        <h3>Current Cost</h3>
+        <div>
+          <b>subtotal:</b> <var rv-html="data.subtotal | price"></var>
+        </div>
+        <div>
+          <b>tax:</b> <var rv-html="data.tax | price"></var>
+        </div>
+        <div>
+          <b>total:</b> <var rv-html="data.total | price"></var>
+        </div>
+      </div>
+    </div>
+  ...
+```
+
+Nothing out of the ordinary here. We use the same trick with `rv-show` and the length formatter to show or hide the element depending on if there are items in the bag. We list out the subtotal, tax, and total and bind them to their keys in the data object.
+
+Now we need create an `updatePrice` function in our controller, that our event handlers can call whenever an event happens that affects the total cost.
+
+```js
+  ...
+  controller = {
+    ...
+    
+    updatePrice: function(data) {
+      
+      var bag = data.bag,
+        product,
+        subtotal = 0,
+        i = 0;
+      
+      for(; i < bag.length; i++) {
+        
+        product = bag[i];
+        
+        subtotal += product.price * product.quantity;
+      }
+      
+      data.subtotal = subtotal;
+      data.tax = subtotal * 0.08875;
+      data.total = subtotal + data.tax;
+    }
+  };
+```
+
+This function accepts the data array, loops through the bag array to tally the aggregate price of all the items, then sets the cost keys in the data array. Since our "Current Cost" markup is bound to these values it will automatically update whenever this function is called.
+
+Now we just have to call `updatePrice` whenever the bag is manipulated. Since all of our event handlers have a reference to model, we can reference `updatePrice` in them and pass in our data like so `model.controller.updatePrice(model.data)`. Here is the js.
+
+```js
+  controller = {
+    onAtbClick: function(e, model) {
+      
+      var product = model.data.products[model.index],
+        bag = model.data.bag,
+        i = 0,
+        updatePrice = model.controller.updatePrice;
+      
+      for(; i < bag.length; i++) {
+        
+        if(bag[i].title === product.title) {
+          
+          bag[i].quantity++;
+          updatePrice(model.data);
+          return;
+        }
+      }
+      
+      bag.push(product);
+      bag[bag.length - 1].quantity = 1;
+      //console.log(product, bag);
+      updatePrice(model.data);
+    },
+    
+    addItem: function(e, model) {
+      
+      model.data.bag[model.index].quantity++;
+      model.controller.updatePrice(model.data);
+    },
+    
+    removeItem: function(e, model) {
+      
+      var index = model.index,
+        bag = model.data.bag,
+        product = bag[index],
+        updatePrice = model.controller.updatePrice;
+      
+      if(product.quantity > 1) {
+        
+        product.quantity--;
+        updatePrice(model.data);
+        return;
+      }
+      
+      bag.splice(index, 1);
+      updatePrice(model.data);
+    },
+    
+    ...
+  };
+
+```
+
+Refresh your browser and start manipulating the shopping bag. You'll see the price element only displays when there are items in the bag, and the cost updates whenever items are added or removed from the bag or quantities are updated.
