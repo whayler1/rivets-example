@@ -134,6 +134,7 @@ Now we can reference `data.products` inside the #candy-shop div and write an uno
         <li rv-each-product="data.products">
           <h3 rv-text="product.title"></h3>
           <var rv-text="product.price"></var>
+          <button type="button">Add to bag</button>
       </ul>
     </div>
 ```
@@ -207,4 +208,44 @@ We need to switch to the `rv-html` binder to display our markup properly. This i
 
 ```html
           <var rv-html="product.price | price"></var>
+```
+
+Refresh your browser and you'll see the markup is now displaying properly.
+
+### Two Way Binding
+
+Currently we have one way binding up and working. The data is populating the DOM and any update to your data will automatically update the corresponding DOM element. We're going to want to allow user input in the DOM to update our data as well. One way of achieving this is with event binding using the `rv-on-[event]` [binder](https://github.com/mikeric/rivets/wiki/Core-Binders#on-event). We're going to create a "Shopping Bag" display and have it update when the user hits an "Add to bag" button on our products menu.
+
+Start by updating the data object to include an empty bag array
+
+```js
+var data = {
+    ...
+    
+    bag: []
+  };
+```
+
+Update your "index.html" file to include the following code.
+
+```html
+    <div id="candy-shop">
+      <h1 rv-text="data.title"></h1>
+      <h3>Products</h3>
+      <ul>
+        <li rv-each-product="data.products">
+          <h3 rv-text="product.title"></h3>
+          <var rv-html="product.price | price"></var>
+          <button type="button" rv-on-click="controller.onAtbClick">Add to bag</button>
+      </ul>
+      <hr>
+      <h3>Shopping Bag</h3>
+      <ul>
+        <li rv-each-product="data.bag">
+          <h3 rv-text="product.title"></h3>
+          <button type="button" rv-on-click="controller.removeItem">-</button>
+          <span> Quantity { product.quantity } </span>
+          <button type="button" rv-on-click="controller.addItem">+</button>
+      </ul>
+    </div>
 ```
