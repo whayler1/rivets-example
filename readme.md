@@ -440,7 +440,6 @@ Now we just have to call `updatePrice` whenever the bag is manipulated. Since al
       
       bag.push(product);
       bag[bag.length - 1].quantity = 1;
-      //console.log(product, bag);
       updatePrice(model.data);
     },
     
