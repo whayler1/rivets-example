@@ -216,7 +216,7 @@ Refresh your browser and you'll see the markup is now displaying properly.
 
 Currently we have one way binding up and working. The data is populating the DOM and any update to your data will automatically update the corresponding DOM element. We're going to want to allow user input in the DOM to update our data as well. One way of achieving this is with event binding using the `rv-on-[event]` [binder](https://github.com/mikeric/rivets/wiki/Core-Binders#on-event). We're going to create a "Shopping Bag" display and have it update when the user hits an "Add to bag" button on our products menu.
 
-Start by updating the data object to include an empty bag array
+Start by updating the data object to include an empty bag array.
 
 ```js
 var data = {
@@ -224,6 +224,74 @@ var data = {
     
     bag: []
   };
+```
+
+Now we're going to create a new object called "controller". This is where we'll keep functions we're going to bind to #candy-shop. 
+
+```js
+var data = {
+    ...
+  },
+  
+  controller = {
+    onAtbClick: function(e, model) {
+      
+      var product = model.data.products[model.index],
+        bag = model.data.bag,
+        i = 0,
+        updatePrice = model.controller.updatePrice;
+      
+      for(; i < bag.length; i++) {
+        
+        if(bag[i].title === product.title) {
+          
+          bag[i].quantity++;
+          updatePrice(model.data);
+          return;
+        }
+      }
+      
+      bag.push(product);
+      bag[bag.length - 1].quantity = 1;
+      //console.log(product, bag);
+      updatePrice(model.data);
+    },
+    
+    addItem: function(e, model) {
+      
+      model.data.bag[model.index].quantity++;
+      model.controller.updatePrice(model.data);
+    },
+    
+    removeItem: function(e, model) {
+      
+      var index = model.index,
+        bag = model.data.bag,
+        product = bag[index],
+        updatePrice = model.controller.updatePrice;
+      
+      if(product.quantity > 1) {
+        
+        product.quantity--;
+        updatePrice(model.data);
+        return;
+      }
+      
+      bag.splice(index, 1);
+      updatePrice(model.data);
+    }
+  };
+```
+
+
+
+Now add controller to the object in our `rivets.bind()` function.
+
+```js
+rivets.bind(document.querySelector('#candy-shop'), {
+  data: data,
+  controller: controller
+});
 ```
 
 Update your "index.html" file to include the following code.
