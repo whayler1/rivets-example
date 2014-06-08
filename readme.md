@@ -1,12 +1,12 @@
 # How Do I Rivets
 
-A buddy recently turned me on to [rivets js](http://www.rivetsjs.com/). It's a sleek little stand alone lib that allows you to leverage data-binding without working with a full framework like Angular. Rivets is a [templating system](http://en.wikipedia.org/wiki/JavaScript_templating), which in and of itself is not so revolutionary, except unlike handlebars or mustache it has built in two-way binding. This means that, assuming everything is configured properly, when you update your data object the DOM will auto-magically update, and when you update properly associated DOM elements the data model will update. A one and done, one stop shop, configure your page and don't worry about your view and your data falling out of sync again.
+A buddy recently turned me on to [rivets js](http://www.rivetsjs.com/). It's a sleek little stand alone lib that allows you to leverage data-binding without working with a full framework like [Angular](https://angularjs.org/). Rivets is a [templating system](http://en.wikipedia.org/wiki/JavaScript_templating), which in and of itself is not so revolutionary, except unlike handlebars or mustache it has built in two-way binding. This means that, assuming everything is configured properly, when you update your data object the DOM will auto-magically update, and when you update properly associated DOM elements the data model will update. A one and done, one stop shop, configure your page and don't worry about your view and your data falling out of sync again.
 
 This tutorial is going to walk you through building a small mock-shopping app with a product list, a shopping bag and a bill calculator. This app will be for a candy shop.
 
 ### Hello Rivets
 
-The most basic thing you could do in rivets is use it's handlebars-like syntax to populate parts of the dom with data. This is called "text content interpolation", but for our purposes it basically means defining where you want data to appear in the DOM by wrapping it in curly brackets: `{ somedata }`.
+The most basic thing you could do in rivets is use it's handlebars-like syntax to populate parts of the dom with data. This is called "text content interpolation", which basically means defining where you want data to appear in the DOM by wrapping it in curly brackets: `{ somedata }`.
 
 #### html
 
@@ -30,7 +30,7 @@ Make a new html file and write the below markup in it. Title this file "index.ht
 </html>
 ```
 
-In the head we pull in rivets script. Inside the body we are creating a div with an h1 tag. The h1 tag has `{ data.title }` in it. If you've used templating engines before this should look familiar to you.
+In the head we pull in the rivets script. Inside the body we create a div tag with the id "candy-shop", this will be important when we bind our data. Inside the #candy-shop div there is an h1 tag with `{ data.title }` in it. If you've used templating engines before this should look familiar to you.
 
 #### css
 
