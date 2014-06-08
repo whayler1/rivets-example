@@ -66,7 +66,7 @@ var data = {
 rivets.bind(
   document.querySelector('#candy-shop'), // bind to the element with id "candy-shop"
   {
-  data: data // add the data object ao we can reference it in our template
+  data: data // add the data object so we can reference it in our template
 });
 ```
 
@@ -92,7 +92,7 @@ Refresh your browser and see everything is the same as before.
 
 #### Looping Through an Array with the rv-each-* Binder
 
-A common task in templating is generating markup from an array. Rivets uses the `rv-each-*` [binder](https://github.com/mikeric/rivets/wiki/Core-Binders#each-item) for this. This employs an interesting trick where the variable you define in the glob `rv-each-<variable>` becomes your reference to that object within the loop (in the case the object is an array). This is analagous to [for...in](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in) loop logic, where `for variable in object` is analagous to `rv-each-variable="object"`.
+A common task in templating is generating markup from an array. Rivets uses the `rv-each-*` [binder](https://github.com/mikeric/rivets/wiki/Core-Binders#each-item) for this. This employs an interesting trick where the variable you define in the glob `rv-each-<variable>` becomes your reference to the current key within the loop. This is analogous to [for...in](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in) loop logic, where `for variable in object` is analogous to `rv-each-variable="object"`.
 
 Let's define the array of products for our candy shop. We'll add this to the data object in "candy-shop.js". We're going to use all the items named in the 50 cent song ["Candy Shop"](http://rapgenius.com/50-cent-candy-shop-lyrics).
 
