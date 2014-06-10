@@ -145,7 +145,7 @@ After adding the above code to "index.html", refresh your browser. You'll see th
 
 ### Formatters
 
-[Formatters](https://github.com/mikeric/rivets/wiki/Example-formatters) are essentially functions, which accept arguments and returns a value. Something any developer is well familiar with. In this case we'll be accepting a number and returning a formatted html string. Let's write a formatter called price. You can place this in your js anywhere before your `rivets.bind()` function.
+[Formatters](https://github.com/mikeric/rivets/wiki/Example-formatters) are essentially functions, which accept arguments and return a value. Something any developer is well familiar with. In this case we'll be accepting a number and returning a formatted html string. Let's write a formatter called price. You can place this in your js anywhere before your `rivets.bind()` function.
 
 ```js
 rivets.formatters.price = function(val) {
@@ -188,7 +188,7 @@ rivets.formatters.price = function(val) {
 };
 ```
 
-In the above code you'll see we accept a numeric value. Do some logic to format the price into a readable USD denomination, and return a string with some html markup.
+In the above code you'll see we accept a numeric value, do some logic to format the price into a readable USD denomination, and return a string with some html markup.
 
 #### _Disclaimer!_
 
@@ -206,7 +206,7 @@ Refresh your browser. You should see the html string we return in our price form
 
 > \<abbr title="USD">$\</abbr>0.50
 
-We need to switch to the `rv-html` binder to display our markup properly. This is similar to the difference between [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node.textContent) and [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element.innerHTML) properties in javascript.
+We need to switch to the `rv-html` binder to display our markup properly. This is similar to the difference between the [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node.textContent) and [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element.innerHTML) properties in javascript.
 
 ```html
           <var rv-html="product.price | price"></var>
@@ -278,11 +278,11 @@ var data = {
   };
 ```
 
-You'll see there are three functions `controller.onAtbClick` for when the "Add to bag" button is hit, `controller.addItem` for increasing the quantity of an item in the shopping bag, and `controller.removeItem` for decreasing the quantity of an item in the shopping bag. Something interesting to notice is the second argument in all these functions: `function(e, model)`. A standard event handler only has an event argument, however elements bound with the `rv-on-[event]` binder pass a second argument called `model`. The `model` argument contains the object you pass in as the second argument of the `rivets.bind()` function. This means that we can manipulate our data object by calling `model.data`. If your data is part of an array and generated with the `rv-each-*` binder model will also have a `model.index` key. This is the index of that item in the array it is being generated from.
+You'll see there are three functions `controller.onAtbClick` for when the "Add to bag" button is hit, `controller.addItem` for increasing the quantity of an item in the shopping bag, and `controller.removeItem` for decreasing the quantity of an item in the shopping bag. Something interesting to notice is that there is a second argument called `model` in all these functions: `function(e, model)`. A standard event handler only has an event argument, however elements bound with the `rv-on-[event]` binder pass a second argument called `model`. The `model` argument contains the object you pass in as the second argument of the `rivets.bind()` function. This means that we can manipulate our data object by calling `model.data` within our event handler. If your data is part of an array and generated with the `rv-each-*` binder model will also have a `model.index` key. This is the index of that item in the array it is being generated from.
 
-In `controller.onAtbClick` we first loop through the `bag` array to see if that item has been added already. If we find a match we update the quantity key of of that item. If no match is found we push this product to the bag array and set the quantity key to 1.
+In `controller.onAtbClick` we first loop through the `bag` array to see if that item has been added already. If we find a match we update the quantity key of that item. If no match is found we push this product to the bag array and set the quantity key to 1.
 
-`controller.addItem` and `controller.removeItem` are for "+" and "-" buttons we are going to add to items in the bag in order to increase of decres the quantity you want to purchase of a specific item. If the item quantity is decreased to 0 we remove the item from the bag.
+`controller.addItem` and `controller.removeItem` are for "+" and "-" buttons we are going to add to items in the bag in order to increase of decrese the quantity you want to purchase of a specific item. If the item quantity is decreased to 0 we remove the item from the bag.
 
 Now add controller to the object in our `rivets.bind()` function. This will allow us to reference controller in binders inside the #candy-shop element.
 
@@ -318,11 +318,11 @@ Then append markup for our Shopping bag to the #candy-shop div.
   ...
 ```
 
-We create another `rv-each-*` binder that loops through the `data.bag` array and generates a li's. Since we defined the glob in the `rv-each-*` binder as "product" we reference individual array items with `product`. We create a "+" and a "-" button for changing the quantity of each item in the shopping bag. Each button uses the `rv-on-[event]` binder to reference its corresponding controller function. Finally we use the handlebars-like curly braces "{}" syntax to bind `product.quantity` to the quantity display.
+We create another `rv-each-*` binder that loops through the `data.bag` array and generates li tags. Since we defined the glob in the `rv-each-*` binder as "product" we reference individual array items with `product`. We create a "+" and a "-" button for changing the quantity of each item in the shopping bag. Each button uses the `rv-on-[event]` binder to reference its corresponding controller function. Finally we use the handlebars-like curly braces "{}" syntax to bind `product.quantity` to the quantity display.
 
-Refresh your browser and click some of the "Add to bag" buttons. You'll see the shopping bag populate with the items. If you click a products "Add to bag" button multiple times you will see the quantity on that item iterate up in the shopping bag. Click the plus and minus buttons on items in the shopping bag and you'll see the quantity go up and down.
+Refresh your browser and click some of the "Add to bag" buttons. You'll see the shopping bag populate with the items. If you click a products "Add to bag" button multiple times you will see the quantity of that item iterate up in the shopping bag. Click the plus and minus buttons on items in the shopping bag and you'll see the quantity go up and down.
 
-When you're done, refresh the page again. Notice in the starting state it just says "Shopping Bag" with nothing under it. Let's use binders and formatters to add a message that says "You have no items in your bag" when the shopping bag is empty. We're going to create a formatter that returns the length of an array, then we're going send that value to the the `rv-hide` [binder](https://github.com/mikeric/rivets/wiki/Core-Binders#showhide). Since in javascript 0 is "falsey" and all positive numbers are "truthy" the element will be hidden whenever the length of `data.bag` is greater then 0.
+When you're done, refresh the page again. Notice in the apps initial state it just says "Shopping Bag" with nothing under it. Let's use binders and formatters to add a message that says "You have no items in your bag" when the shopping bag is empty. We're going to create a formatter that returns the length of an array, then we're going send that value to the `rv-hide` [binder](https://github.com/mikeric/rivets/wiki/Core-Binders#showhide). Since in javascript 0 is "falsey" and all positive numbers are "truthy" the element will be hidden whenever the length of `data.bag` is greater then 0.
 
 Add this formatter to your js anywhere before `rivets.bind()`.
 
@@ -389,7 +389,7 @@ In our html we'll write out a display for the price.
 
 Nothing out of the ordinary here. We use the same trick with `rv-show` and the length formatter to show or hide the element depending on if there are items in the bag. We list out the subtotal, tax, and total and bind them to their keys in the data object.
 
-Now we need create an `updatePrice` function in our controller, that our event handlers can call whenever an event happens that affects the total cost.
+Now we need to create an `updatePrice` function in our controller, that our event handlers can call whenever an event happens that affects the total cost.
 
 ```js
   ...
@@ -419,7 +419,7 @@ Now we need create an `updatePrice` function in our controller, that our event h
 
 This function accepts the data array, loops through the bag array to tally the aggregate price of all the items, then sets the cost keys in the data array. Since our "Current Cost" markup is bound to these values it will automatically update whenever this function is called.
 
-Now we just have to call `updatePrice` whenever the bag is manipulated. Since all of our event handlers have a reference to model, we can reference `updatePrice` in them and pass in our data like so `model.controller.updatePrice(model.data)`. Here is the js.
+Now we just have to call `updatePrice` whenever the bag is manipulated. Since all of our event handlers have a reference to model, we can reference `updatePrice` in them and pass in our data like so: `model.controller.updatePrice(model.data)`. Here is the js.
 
 ```js
   controller = {
