@@ -4,9 +4,11 @@ A buddy recently turned me on to [rivets js](http://www.rivetsjs.com/). It's a s
 
 This tutorial is going to walk you through building a small mock-shopping app with a product list, a shopping bag and a bill calculator. This app will be for a candy shop.
 
+All of the code for this tutorial can be found in [this repository](https://github.com/whayler1/rivets-example).
+
 ### Hello Rivets
 
-The most basic thing you could do in rivets is use it's handlebars-like syntax to populate parts of the dom with data. This is called "text content interpolation", which basically means defining where you want data to appear in the DOM by wrapping it in curly brackets: `{ somedata }`.
+The most basic thing you could do in rivets is use it's handlebars-like syntax to populate parts of the DOM with data. This is called "text content interpolation", which basically means defining where you want data to appear in the DOM by wrapping it in curly brackets: `{ somedata }`.
 
 #### html
 
@@ -16,15 +18,15 @@ Make a new html file and write the below markup in it. Title this file "index.ht
 <!DOCTYPE html>
 <html>
   <title>Candy Shop</title>
-    
+
   <link rel="stylesheet" href="candy-shop.css">
-  <script type="text/javascript" 
+  <script type="text/javascript"
       src="http://cdn.rawgit.com/mikeric/rivets/master/dist/rivets.min.js"></script>
   <body>
     <div id="candy-shop">
       <h1>{ data.title }</h1>
     </div>
-    
+
     <script type="text/javascript" src="candy-shop.js"></script>
   </body>
 </html>
@@ -70,7 +72,7 @@ rivets.bind(
 });
 ```
 
-To start, all we'll do is create a data object with a key/value pair for our title. Then we use the `rivets.bind()` method to associate our data with a DOM element. The first argument tells rivets where in the DOM to bind to, in this case we're binding to the element with id "candy-shop". Then we pass in an object. This is the object we'll have access to when templating content inside the bound element. We'll add our data object to it so we can reference it within the #candy-shop div.
+To start, all we'll do is create a data object with a key/value pair for our title. Then we use the `rivets.bind()` function to associate our data with a DOM element. The first argument tells rivets where in the DOM to bind to, in this case we're binding to the element with id "candy-shop". Then we pass in an object. This is the object we'll have access to when templating content inside the bound element. We'll add our data object to it so we can reference it within the #candy-shop div.
 
 ### One Way Binding
 
@@ -99,7 +101,7 @@ Let's define the array of products for our candy shop. We'll add this to the dat
 ```js
 var data = {
     title: 'Welcome to the Candy Shop',
-    
+
     products: [
       {
         title: 'lollipop',
@@ -147,41 +149,41 @@ After adding the above code to "index.html", refresh your browser. You'll see th
 
 ```js
 rivets.formatters.price = function(val) {
-  
+
   var spl = String(val).split('.'),
     dollarsArray = spl[0].split(''),
     lastDollar = dollarsArray.length - 1,
     pow,
     i;
-  
+
   if(dollarsArray.length > 3) {
-    
+
     dollarsArray.reverse();
-    
+
     for(i = lastDollar; i > -1; i--) {
-      
+
       if(i % 3 === 0 && i !== 0) {
-        
+
         dollarsArray.splice(i, 0, ',');
       }
     }
-    
+
     spl[0] = dollarsArray.reverse().join('');
   }
-  
+
   if(spl.length > 1) {
-    
+
     spl[1] = spl[1].substr(0, 2);
-    
+
     if(spl[1].length < 2) {
-      
+
       spl[1] += '0';
     }
   }else {
-    
+
     spl[1] = '00';
   }
-  
+
   return '<abbr title="USD">$</abbr>' + spl.join('.');
 };
 ```
@@ -221,55 +223,55 @@ Start by updating the data object to include an empty bag array.
 ```js
 var data = {
     ...
-    
+
     bag: []
   };
 ```
 
-Now we're going to create a new object called "controller". This is where we'll keep functions we're going to bind to #candy-shop. 
+Now we're going to create a new object called "controller". This is where we'll keep functions we're going to bind to #candy-shop.
 
 ```js
 var data = {
     ...
   },
-  
+
   controller = {
     onAtbClick: function(e, model) {
-      
+
       var product = model.data.products[model.index],
         bag = model.data.bag,
         i = 0;
-      
+
       for(; i < bag.length; i++) {
-        
+
         if(bag[i].title === product.title) {
-          
+
           bag[i].quantity++;
           return;
         }
       }
-      
+
       bag.push(product);
       bag[bag.length - 1].quantity = 1;
     },
-    
+
     addItem: function(e, model) {
-      
+
       model.data.bag[model.index].quantity++;
     },
-    
+
     removeItem: function(e, model) {
-      
+
       var index = model.index,
         bag = model.data.bag,
         product = bag[index];
-      
+
       if(product.quantity > 1) {
-        
+
         product.quantity--;
         return;
       }
-      
+
       bag.splice(index, 1);
       updatePrice(model.data);
     }
@@ -326,7 +328,7 @@ Add this formatter to your js anywhere before `rivets.bind()`.
 
 ```js
 rivets.formatters.length = function(val) {
-  
+
   return val.length;
 }
 ```
@@ -352,11 +354,11 @@ Start by updating the data object to include keys for our calculator data.
 ```js
 var data = {
     ...
-    
+
     subtotal: 0,
-    
+
     tax: 0,
-    
+
     total: 0
   },
   ...
@@ -393,21 +395,21 @@ Now we need create an `updatePrice` function in our controller, that our event h
   ...
   controller = {
     ...
-    
+
     updatePrice: function(data) {
-      
+
       var bag = data.bag,
         product,
         subtotal = 0,
         i = 0;
-      
+
       for(; i < bag.length; i++) {
-        
+
         product = bag[i];
-        
+
         subtotal += product.price * product.quantity;
       }
-      
+
       data.subtotal = subtotal;
       data.tax = subtotal * 0.08875;
       data.total = subtotal + data.tax;
@@ -422,51 +424,51 @@ Now we just have to call `updatePrice` whenever the bag is manipulated. Since al
 ```js
   controller = {
     onAtbClick: function(e, model) {
-      
+
       var product = model.data.products[model.index],
         bag = model.data.bag,
         i = 0,
         updatePrice = model.controller.updatePrice;
-      
+
       for(; i < bag.length; i++) {
-        
+
         if(bag[i].title === product.title) {
-          
+
           bag[i].quantity++;
           updatePrice(model.data);
           return;
         }
       }
-      
+
       bag.push(product);
       bag[bag.length - 1].quantity = 1;
       updatePrice(model.data);
     },
-    
+
     addItem: function(e, model) {
-      
+
       model.data.bag[model.index].quantity++;
       model.controller.updatePrice(model.data);
     },
-    
+
     removeItem: function(e, model) {
-      
+
       var index = model.index,
         bag = model.data.bag,
         product = bag[index],
         updatePrice = model.controller.updatePrice;
-      
+
       if(product.quantity > 1) {
-        
+
         product.quantity--;
         updatePrice(model.data);
         return;
       }
-      
+
       bag.splice(index, 1);
       updatePrice(model.data);
     },
-    
+
     ...
   };
 
