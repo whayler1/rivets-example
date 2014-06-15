@@ -8,7 +8,7 @@ All of the code for this tutorial can be found in [this repository](https://gith
 
 ### Hello Rivets
 
-The most basic thing you could do in rivets is use it's handlebars-like syntax to populate parts of the DOM with data. This is called "text content interpolation", which basically means defining where you want data to appear in the DOM by wrapping it in curly brackets: `{ somedata }`.
+The most basic thing you can do in rivets is use it's handlebars-like syntax to populate parts of the DOM with data. This is called "text content interpolation", which basically means defining where you want data to appear in the DOM by wrapping it in curly brackets: `{ somedata }`.
 
 #### html
 
@@ -129,6 +129,7 @@ var data = {
 Now we can reference `data.products` inside the #candy-shop div and write an unordered list of the contents with `rv-each-*`.
 
 ```html
+  ...
     <div id="candy-shop">
       <h1 rv-text="data.title"></h1>
       <h3>Products</h3>
@@ -139,6 +140,7 @@ Now we can reference `data.products` inside the #candy-shop div and write an uno
           <button type="button">Add to bag</button>
       </ul>
     </div>
+  ...
 ```
 
 After adding the above code to "index.html", refresh your browser. You'll see the product titles and prices listed out. Notice, however that the numbers do not read as properly formatted prices in USD. This is where formatters come in.
@@ -278,7 +280,7 @@ var data = {
   };
 ```
 
-You'll see there are three functions `controller.onAtbClick` for when the "Add to bag" button is hit, `controller.addItem` for increasing the quantity of an item in the shopping bag, and `controller.removeItem` for decreasing the quantity of an item in the shopping bag. Something interesting to notice is that there is a second argument called `model` in all these functions: `function(e, model)`. A standard event handler only has an event argument, however elements bound with the `rv-on-[event]` binder pass a second argument called `model`. The `model` argument contains the object you pass in as the second argument of the `rivets.bind()` function. This means that we can manipulate our data object by calling `model.data` within our event handler. If your data is part of an array and generated with the `rv-each-*` binder model will also have a `model.index` key. This is the index of that item in the array it is being generated from.
+You'll see there are three functions `controller.onAtbClick` for when the "Add to bag" button is hit, `controller.addItem` for increasing the quantity of an item in the shopping bag, and `controller.removeItem` for decreasing the quantity of an item in the shopping bag. Something interesting to notice is that there is a second argument called `model` in all these functions: `function(e, model)`. A standard event handler only has an event argument, however elements bound with the `rv-on-[event]` binder pass a second argument called `model`. The `model` argument contains the object you pass in as the second argument of the `rivets.bind()` function. This means that we can manipulate our data object by calling `model.data` within our event handler. If your data is part of an array and generated with the `rv-each-*` binder `model` will also have a `model.index` key. This is the index of that item in the array it is being generated from.
 
 In `controller.onAtbClick` we first loop through the `bag` array to see if that item has been added already. If we find a match we update the quantity key of that item. If no match is found we push this product to the bag array and set the quantity key to 1.
 
