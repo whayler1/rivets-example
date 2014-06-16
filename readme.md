@@ -1,5 +1,3 @@
-# How Do I Rivets
-
 A buddy recently turned me on to [rivets js](http://www.rivetsjs.com/). It's a sleek little stand alone lib that allows you to leverage data-binding without working with a full framework like [Angular](https://angularjs.org/). Rivets is a [templating system](http://en.wikipedia.org/wiki/JavaScript_templating), which in and of itself is not so revolutionary, except unlike handlebars or mustache it has built in two-way binding. This means that, assuming everything is configured properly, when you update your data object the DOM will auto-magically update, and when you update properly associated DOM elements the data model will update. A one and done, one stop shop, configure your page and don't worry about your view and your data falling out of sync again.
 
 This tutorial is going to walk you through building a small mock-shopping app with a product list, a shopping bag and a bill calculator. This app will be for a candy shop.
